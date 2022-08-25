@@ -58,7 +58,7 @@ class SignInPage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                   const CustomFormField(
+                    const CustomFormField(
                       title: 'Password',
                       obscureText: true,
                     ),
@@ -77,7 +77,10 @@ class SignInPage extends StatelessWidget {
                     ),
                     CustomFilledButton(
                       title: 'Sign In',
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/home', (route) => false);
+                      },
                     ),
                   ],
                 ),
