@@ -203,7 +203,7 @@ class _TransferAmountPageState extends State<TransferAmountPage> {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(
