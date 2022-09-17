@@ -10,7 +10,9 @@ class AuthService {
           Uri.parse(
             '$baseUrl/is-email-exist',
           ),
-          body: {email: email});
+          body: {
+            'email': email,
+          });
       if (res.statusCode == 200) {
         return jsonDecode(res.body)['is_email_exist'];
       } else {
