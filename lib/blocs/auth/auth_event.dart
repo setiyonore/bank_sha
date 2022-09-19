@@ -12,3 +12,11 @@ class AuthCheckEmail extends AuthEvent{
   @override
   List<Object?> get props => [email];
 }
+
+class AuthRegister extends AuthEvent{
+  final SignupFormModel data;
+  const AuthRegister(this.data);
+
+  @override
+  List<Object?> get props => [data];
+}

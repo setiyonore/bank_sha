@@ -103,19 +103,6 @@ class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
                             ),
                           ),
                   ),
-                  // Container(
-                  //   width: 120,
-                  //   height: 120,
-                  //   decoration: const BoxDecoration(
-                  //     shape: BoxShape.circle,
-                  //     image: DecorationImage(
-                  //       fit: BoxFit.cover,
-                  //       image: AssetImage(
-                  //         'assets/img_profile.png',
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   const SizedBox(
                     height: 16,
                   ),
@@ -138,31 +125,31 @@ class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
                   const SizedBox(
                     height: 30,
                   ),
-                  CustomFilledButton(
-                    title: 'Continue',
-                    onPressed: () {
-                      if (validate()) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SignUpSetKtpPage(
-                              data: widget.data.copyWith(
-                                pin: pinController.text,
-                                profilePicture: selectedImage == null ? null : 'data:image/png;base64,' + base64Encode(
-                                  File(selectedImage!.path).readAsBytesSync(),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      } else {
-                        showCustomSnackbar(context, 'PIN harus 6 digit');
-                      }
-                    },
-                  ),
                 ],
               ),
             ),
+          ),
+          CustomFilledButton(
+            title: 'Continue',
+            onPressed: () {
+              if (validate()) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SignUpSetKtpPage(
+                      data: widget.data.copyWith(
+                        pin: pinController.text,
+                        profilePicture: selectedImage == null ? null : 'data:image/png;base64,' + base64Encode(
+                          File(selectedImage!.path).readAsBytesSync(),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                showCustomSnackbar(context, 'PIN harus 6 digit');
+              }
+            },
           ),
           const SizedBox(
             height: 50,

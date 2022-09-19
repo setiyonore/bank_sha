@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:bank_sha/models/sign_up_form_model.dart';
+import 'package:bank_sha/models/user_model.dart';
 import 'package:bank_sha/services/auth_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -15,11 +17,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         try {
           emit(AuthLoading());
           final res = await AuthService().checkEmail(event.email);
-          if(res == false){
+          if (res == false) {
             emit(AuthCheckEmailSuccess());
-          }else{
+          } else {
             emit(const AuthFailed('Email Sudah Terpakai'));
           }
+        } catch (e) {
+          emit(AuthFailed(e.toString()));
+        }
+      }
+      if (event is AuthRegister) {
+        try {
+          emit(AuthLoading());
+          final user = await AuthService().register(event.data);
+          emit(
+            AuthSuccess(user),
+          );
         } catch (e) {
           emit(AuthFailed(e.toString()));
         }
