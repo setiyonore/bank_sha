@@ -58,10 +58,8 @@ class AuthService {
         UserModel user = UserModel.fromJson(
           jsonDecode(res.body),
         );
-        print(user.password);
         user.password = data.password;
         await storeCredentialToLocal(user);
-        print(user.password);
         return user;
       } else {
         throw jsonDecode(res.body)['message'];
@@ -99,17 +97,18 @@ class AuthService {
       rethrow;
     }
   }
-  Future<String> getToken() async{
+
+  Future<String> getToken() async {
     String token = '';
     const storage = FlutterSecureStorage();
     String? value = await storage.read(key: 'token');
-    if(value != null){
-      token = 'Bearer '+value;
+    if (value != null) {
+      token = 'Bearer ' + value;
     }
     return token;
   }
 
-  Future<void> clearLocalStorage() async{
+  Future<void> clearLocalStorage() async {
     const storage = FlutterSecureStorage();
     await storage.deleteAll();
   }
