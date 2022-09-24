@@ -36,7 +36,7 @@ class BankItem extends StatelessWidget {
                   height: 30,
                 )
               : Image.asset(
-                  'assets/img_bank_mandiri.png',
+                  'assets/img_bank_bca.png',
                 ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
