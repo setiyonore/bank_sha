@@ -7,6 +7,7 @@ class CustomFormField extends StatelessWidget {
   final TextEditingController? controller;
   final bool isShowTitle;
   final TextInputType? keyboardType;
+  final Function(String)? onFieldSubmited;
   const CustomFormField({
     Key? key,
     required this.title,
@@ -14,6 +15,7 @@ class CustomFormField extends StatelessWidget {
     this.controller,
     this.isShowTitle = true,
     this.keyboardType,
+    this.onFieldSubmited,
   }) : super(key: key);
 
   @override
@@ -42,6 +44,7 @@ class CustomFormField extends StatelessWidget {
             ),
             contentPadding: const EdgeInsets.all(12),
           ),
+          onFieldSubmitted: onFieldSubmited,
         ),
       ],
     );
