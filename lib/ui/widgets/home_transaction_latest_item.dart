@@ -57,7 +57,7 @@ class HomeLatestTransactionItem extends StatelessWidget {
           Text(
             formatCurrency(
               transaction.amount ?? 0,
-              symbol: transaction.transactionType?.action == 'cr' ? '- ' : '+',
+              symbol: transaction.transactionType?.action == 'cr' ? '+ ' : '-',
             ),
             style: blackTextStyle.copyWith(
               fontSize: 16,

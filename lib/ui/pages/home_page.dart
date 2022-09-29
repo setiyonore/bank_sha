@@ -1,5 +1,7 @@
 import 'package:bank_sha/blocs/auth/auth_bloc.dart';
 import 'package:bank_sha/blocs/transaction/transaction_bloc.dart';
+import 'package:bank_sha/blocs/user/user_bloc.dart';
+import 'package:bank_sha/models/transfer_form_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bank_sha/shared/shared_method.dart';
 import 'package:bank_sha/shared/theme.dart';
@@ -8,6 +10,8 @@ import 'package:bank_sha/ui/widgets/home_tips_item.dart';
 import 'package:bank_sha/ui/widgets/home_transaction_latest_item.dart';
 import 'package:bank_sha/ui/widgets/home_user_item.dart';
 import 'package:flutter/material.dart';
+
+import 'transfer_amount_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -393,7 +397,8 @@ class HomePage extends StatelessWidget {
                     ),
                     child: Column(
                       children: state.transactions.map((transaction) {
-                        return HomeLatestTransactionItem(transaction: transaction);
+                        return HomeLatestTransactionItem(
+                            transaction: transaction);
                       }).toList(),
                     ),
                   ),
@@ -427,27 +432,40 @@ class HomePage extends StatelessWidget {
           const SizedBox(
             height: 14,
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: const [
-                HomeUserItem(
-                  imageUrl: 'assets/img_friend1.png',
-                  username: 'yuanita',
-                ),
-                HomeUserItem(
-                  imageUrl: 'assets/img_friend2.png',
-                  username: 'jani',
-                ),
-                HomeUserItem(
-                  imageUrl: 'assets/img_friend3.png',
-                  username: 'urip',
-                ),
-                HomeUserItem(
-                  imageUrl: 'assets/img_friend4.png',
-                  username: 'masa',
-                ),
-              ],
+          BlocProvider(
+            create: (context) => UserBloc()..add(UserGetRecent()),
+            child: BlocBuilder<UserBloc, UserState>(
+              builder: (context, state) {
+                if (state is UserSuccess) {
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: state.users.map((user) {
+                        return GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TransferAmountPage(
+                                  data: TransferFormModel(
+                                    sendTo: user.username,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          child: HomeUserItem(
+                            user: user,
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  );
+                }
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
             ),
           ),
         ],
